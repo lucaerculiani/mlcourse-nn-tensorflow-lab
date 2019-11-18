@@ -18,32 +18,42 @@
 \begin{document}
   \frame{\maketitle}
 
+\def \bgcc {gray!20!white} 
 
-    \defverbatim[colored]\localrun{
-      \begin{lstlisting}[language=bash,backgroundcolor = \color{lightgray}]
-      \$> ./jupyter-scikit.sh
-    \end{lstlisting}}
-\begin{frame}{Setup (on lab machines)}
+\defverbatim[colored]\localrun{
+\begin{lstlisting}[language=bash,backgroundcolor = \color{\bgcc}]
+> ./jupyter-scikit.sh
+\end{lstlisting}}
+\begin{frame}{Setup}
+\framesubtitle{On lab machines}
 \centering
 
-\includegraphics[width=\textwidth]{figures/jupyter}
-
-\vspace{0.3in}
-\hrule
-\vspace{0.3in}
+\includegraphics[width=0.5\textwidth]{figures/jupyter}
 
 Download and extract the Scikit-learn lecture material from:
 
-{\footnotesize \url{http://disi.unitn.it/~passerini/teaching/2018-2019/MachineLearning/}}
+{\footnotesize \scriptsize \url{http://disi.unitn.it/~passerini/teaching/2019-2020/MachineLearning/}}
 
-Open the terminal in the folder containing the extracted archive and run:
+Open the terminal in the folder containing the extracted files and run:
+\localrun
 %\mint[fontsize=\scriptsize, bgcolor=GGrey]{cucumber}| $> ./jupyter-scikit.sh |
 
 \end{frame}
 
 %-----------------------------------------------------------------------------%
 
-\begin{frame}{Setup (on your own machine)}
+\defverbatim[colored]\pipinstall{
+\begin{lstlisting}[language=bash,backgroundcolor = \color{\bgcc}]
+> pip install numpy scipy matplotlib sklearn jupyter
+\end{lstlisting}}
+
+\defverbatim[colored]\launchjupyter{
+\begin{lstlisting}[language=bash,backgroundcolor = \color{\bgcc}]
+> jupyter notebook
+\end{lstlisting}}
+
+\begin{frame}{Setup}
+\framesubtitle{On your own machine}
 \centering
 
 Make sure you are using Python 3 for the following steps.
@@ -51,7 +61,7 @@ Make sure you are using Python 3 for the following steps.
 \vspace{0.1in}
 
 Install Numpy, Scipy, Matplotlib, Scikit-learn and Jupyter:
-
+\pipinstall
 %\mint[fontsize=\scriptsize, bgcolor=GGrey]{cucumber}| $> pip install numpy scipy matplotlib sklearn jupyter |
 
 
@@ -59,20 +69,23 @@ Download and extract the material for the Scikit-learn lab:
 
 \vspace{0.2in}
 
-{\footnotesize \url{http://disi.unitn.it/~passerini/teaching/2018-2019/MachineLearning/}}
+{\footnotesize \scriptsize \url{http://disi.unitn.it/~passerini/teaching/2019-2020/MachineLearning/}}
 
 Open the terminal in the folder containing the extracted archive and run:
+\launchjupyter
 %\mint[fontsize=\scriptsize, bgcolor=GGrey]{cucumber}| $> jupyter notebook |
 
 \end{frame}
 
 %-----------------------------------------------------------------------------%
 
-\begin{frame}{Setup: Jupyther notebook}
+\begin{frame}{Setup}
+\framesubtitle{Jupyter notebook}
 \centering
 
 Open the browser at the given address and you'll see something like:
 
+\vspace{0.2in}
 \includegraphics[width=\textwidth]{figures/home}
 
 \vspace{-0.8in}
@@ -83,7 +96,7 @@ Open the \texttt{sklearn-lab.ipynb} file containing the lecture notebook.
 
 %-----------------------------------------------------------------------------%
 
-\begin{frame}{Setup: Jupyther notebook}
+\begin{frame}{Jupyter notebook}
 \centering
 
 \includegraphics[width=\textwidth]{figures/click1}
@@ -120,7 +133,8 @@ training set and produce a report containing the results obtained.
 
 %-----------------------------------------------------------------------------%
 
-\begin{frame}{Assignment | Datasets}
+\begin{frame}{Assignment}
+\framesubtitle{Datasets}
 \centering
 
 \vspace{0.1in}
@@ -130,7 +144,7 @@ training set and produce a report containing the results obtained.
     \centering
     \shortstack{\textbf{OCR} \\ Optical Character Recognition} & \shortstack{\textbf{Spambase} \\ Spam email classification} \\
     \includegraphics[height=0.2\textheight]{figures/signature} & \includegraphics[height=0.2\textheight]{figures/spam} \\
-    \\
+    
     \multicolumn{2}{c}{\shortstack{\textbf{Presidential campaign tweets} \\ Classification of tweets from D. Trump and H. Clinton}} \\
     \multicolumn{2}{c}{\includegraphics[width=0.5\textwidth]{figures/tweet}} \\
 \end{tabular}
@@ -140,11 +154,11 @@ training set and produce a report containing the results obtained.
 
 %-----------------------------------------------------------------------------%
 
-\begin{frame}{Assignment | Material}
-
+\begin{frame}{Assignment}
+\framesubtitle{Material}
 Download the assignment material:
 
-{\footnotesize \url{http://disi.unitn.it/~passerini/teaching/2017-2018/MachineLearning/}}
+{\scriptsize \url{http://disi.unitn.it/~passerini/teaching/2019-2020/MachineLearning/}}
 
 The material contains the three datasets, each one containing:
     \begin{itemize}
@@ -184,7 +198,8 @@ The material contains the three datasets, each one containing:
 
 %-----------------------------------------------------------------------------%
 
-\begin{frame}{Assignment | Step-by-step}
+\begin{frame}{Assignment}
+\framesubtitle{Step-by-step}
 
 \begin{enumerate}
 \item Choose a dataset;
@@ -194,7 +209,14 @@ The material contains the three datasets, each one containing:
 \item Use the classifier to predict the examples in the test set;
 \item Place the labels in a file, in the same order as you read the test
       examples and in the same format of the labels in the training set.
-\item Write a report describing the learning algorithm used and discussing the
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Assignment}
+\framesubtitle{Report}
+
+Write a report describing the learning algorithm used and discussing the
 results obtained; The report should contain at least:
     \begin{itemize}
     \item The average precision, recall, and $F_1$ over the cross validation folds
@@ -207,13 +229,12 @@ results obtained; The report should contain at least:
           \texttt{'f1\_weighted'}; 
     \item The plot of the learning curve, as shown in the lecture;
     \end{itemize}
-\end{enumerate}
 
 \end{frame}
-
 %-----------------------------------------------------------------------------%
 
-\begin{frame}{Assignment | Submit}
+\begin{frame}{Assignment}
+\framesubtitle{Submit}
 
 \begin{itemize}
     \item After completing the assignment submit it via email
