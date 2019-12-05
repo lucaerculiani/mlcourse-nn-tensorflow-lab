@@ -1,28 +1,14 @@
 \documentclass[10pt]{beamer}
-\usetheme[progressbar=frametitle]{metropolis}
+\usetheme{fibeamer}
 \setbeamertemplate{itemize item}{\tiny\raise1.6pt\hbox{$\bullet$}}
 
 \usepackage{lmodern}
 \usepackage{xcolor}
 \usepackage{wrapfig}
 \usepackage[font=small,skip=0pt]{caption}
-\usepackage{minted}
-\usemintedstyle{monokai}
 \definecolor{GGrey}{HTML}{232323}
 
 
-\usepackage[framemethod=tikz]{mdframed}
-\definecolor{tomato}{rgb}{0.90,0.16,0.17}
-\definecolor{bg}{rgb}{0.98, 0.98, 0.98}
-
-
-\newmdenv[roundcorner=4pt, linecolor=bg, innerleftmargin=6pt, innerrightmargin=6pt,
-innertopmargin=6pt, innerbottommargin=6pt, backgroundcolor=bg]{bgbox}
-\newmdenv[roundcorner=4pt, linecolor=tomato, innerleftmargin=6pt, innerrightmargin=6pt,
-innertopmargin=6pt, innerbottommargin=6pt, backgroundcolor=bg]{tomatobox}
-\newmdenv[tikzsetting={draw=tomato, dashed,dash pattern = on 5pt off 5pt},
-roundcorner=4pt, linecolor=bg, innerleftmargin=6pt, innerrightmargin=6pt,
-innertopmargin=6pt, innerbottommargin=6pt, backgroundcolor=bg]{dashedtomatobox}
 
 \title{Laboratory on Neural Networks}
 \subtitle{TensorFlow}
@@ -31,69 +17,57 @@ innertopmargin=6pt, innerbottommargin=6pt, backgroundcolor=bg]{dashedtomatobox}
 \date{}
 
 \begin{document}
+\def \bgcc {gray!20!white} 
 
 \maketitle
 
 %-----------------------------------------------------------------------------%
 
-\begin{frame}{Setup on lab machines}
+\defverbatim[colored]\localrun{
+\begin{lstlisting}[language=bash,backgroundcolor = \color{\bgcc}]
+> ./jupyter-scikit.sh
+\end{lstlisting}}
+\begin{frame}{Setup}
 \centering
 
-\includegraphics[width=\textwidth]{figures/jupyter}
+\includegraphics[width=0.4\textwidth]{figures/colab}
 
 \vspace{0.3in}
-\hrule
-\vspace{0.3in}
+Download and extract the lecture material from:
 
-Download and extract the TensorFlow lecture material from:
+{\footnotesize \scriptsize \url{http://disi.unitn.it/~passerini/teaching/2019-2020/MachineLearning/}}
 
-{\footnotesize \url{http://disi.unitn.it/~passerini/teaching/2018-2019/MachineLearning/}}
+\vspace{0.2in}
+Open Google colab on your web browser and login (with your unitn account or a personal one): \\
 
-Open the terminal in the folder containing the extracted archive and run:
-\mint[fontsize=\scriptsize, bgcolor=GGrey]{cucumber}| $> ./jupyter-tensorflow.sh |
+{\url{https://colab.research.google.com}} \\
 
 \end{frame}
 
 %-----------------------------------------------------------------------------%
 
-\begin{frame}{Setup on your own machine}
+\defverbatim[colored]\pipinstall{
+\begin{lstlisting}[language=bash,backgroundcolor = \color{\bgcc}]
+> pip install numpy scipy matplotlib sklearn jupyter
+\end{lstlisting}}
+
+\defverbatim[colored]\launchjupyter{
+\begin{lstlisting}[language=bash,backgroundcolor = \color{\bgcc}]
+> jupyter notebook
+\end{lstlisting}}
+
+\begin{frame}{Setup}
 \centering
 
-Make sure you are using Python 3 for the following steps.
+Upload the file \texttt{tensorflow-lab.ipynb} \\
+\vspace{0.2in}
 
-\vspace{0.1in}
-
-Install Numpy, Scipy, Matplotlib, TensorFlow and Jupyter:
-\mint[fontsize=\scriptsize, bgcolor=GGrey]{cucumber}| $> pip install numpy scipy matplotlib tensorflow jupyter |
-{\footnotesize (you may want to install \texttt{CUDA} and \texttt{tensorflow-gpu} if you have a dedicated GPU)}
-
-\vspace{0.1in}
-
-Download and extract the material for the TensorFlow lab.
-
-Open the terminal in the folder containing the extracted archive and run:
-\mint[fontsize=\scriptsize, bgcolor=GGrey]{cucumber}| $> jupyter notebook |
+\includegraphics[width=0.75\textwidth]{figures/upload}
 
 \end{frame}
 
 %-----------------------------------------------------------------------------%
 
-\begin{frame}{Setup: Jupyther notebook}
-\centering
-
-\includegraphics[width=\textwidth]{figures/click1}
-
-\vspace{0.1in}
-\hrule
-\vspace{0.1in}
-
-Execute commands by selecting a cell and clicking the \textcolor{tomato}{Run
-button} on the header of the page or by \textbf{Shift+Enter}. You will see the
-output of the command just below the cell.
-
-You can tweak and modify the code as you wish and execute it again.
-
-\end{frame}
 
 %-----------------------------------------------------------------------------%
 
@@ -103,12 +77,14 @@ You can tweak and modify the code as you wish and execute it again.
 For the third Machine Learning assignment you will solve a classification task
 using \textbf{TensorFlow} over the OCR dataset. The dataset is already split
 into training and test sets. Your task is to train a deep
-neural network on the training set and predict the labels on the test set. To
+neural network with {\bf at least 3} convolutional layers on the training set and predict the labels on the test set. To
 pass the assignment, your network has to classify the examples in the test
 set with higher accuracy than the reference baseline for the dataset.
 
-Additionally, you need to test your algorithm via cross-validation over the
-training set and produce a report containing the results obtained.
+Additionally, you need to perform model selection and 
+test your algorithm over a validation set
+and produce a report containing the results obtained.
+
 
 \end{frame}
 
@@ -118,9 +94,9 @@ training set and produce a report containing the results obtained.
 
 Download the assignment material:
 
-{\footnotesize \url{http://disi.unitn.it/~passerini/teaching/2018-2019/MachineLearning/}}
+{\footnotesize \url{http://disi.unitn.it/~passerini/teaching/2019-2020/MachineLearning/}}
 
-The material motains:
+The material contains:
     \begin{itemize}
     \item The training set examples;
     \item The training set labels;
@@ -155,37 +131,47 @@ The material motains:
 
 %-----------------------------------------------------------------------------%
 
-\begin{frame}{Assignment | Step-by-step}
+\begin{frame}{Assignment}
+\framesubtitle{Step-by-step}
+
 
 \begin{enumerate}
-\item Experiment with a deep network architecture of your choosing;
-\item Test your network using cross-validation over the training set;
+		\item Build a neural network (at least 3 convolutional layers);
+\item {\bf Do model selection} (optimizing hyperparameters
+		or testing different architectures, performing validation by splitting the train set);
 \item Train your classifier over the full training set;
 \item Use the classifier to predict the examples in the test set;
 \item Place the labels in a file, in the same order as you read the test
       examples and in the same format of the labels in the training set.
-\item Write a report describing the learning algorithm used and discussing the
-results obtained; The report should contain at least:
-    \begin{itemize}
-    \item The average accuracy over the folds and over the test set.
-    \item A simple diagram of the network architecture (use Google Drawings or similar software);
-    \end{itemize}
 \end{enumerate}
 
 \end{frame}
 
+\begin{frame}{Assignment}
+\framesubtitle{Report}
+
+ Write a report describing the learning algorithm used and discussing the
+results obtained; The report should contain at least:
+    \begin{itemize}
+    \item The average accuracy over the your validation set and over the test set.
+    \item A simple diagram of the network architecture (use Google Drawings or similar software);
+	\item The number of weights of each layer
+    \end{itemize}
+
+\end{frame}
 %-----------------------------------------------------------------------------%
 
-\begin{frame}{Assignment | Submit}
+\begin{frame}{Assignment}
+\framesubtitle{Submit}
 
 \begin{itemize}
     \item After completing the assignment submit it via email
     \item Send an email to \href{mailto:mllab@unitn.it}{mllab@unitn.it} 
-    \item Subject: tensorflowSubmit2018
+    \item Subject: tensorflowSubmit2019
     \item Attachment: \texttt{id\_name\_surname.zip} containing:
     \begin{itemize}
         \item The text file containing the final predictions;
-        \item The code used to produce the predictions;
+        \item The code you used;
         \item The report in PDF format.
     \end{itemize}
 \end{itemize}
